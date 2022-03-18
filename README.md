@@ -26,3 +26,7 @@ The goal is to retrieve the ticker, the total daily volume, and the return on ea
 
 * The advantage is that refactoring could have better quality. The disadvantage is not knowing where to go next after changing a line, and trying to debug. Unsure if refactoring actually help with run time or if your coding is correct.
 
+![This is an image](https://github.com/Wrancher123/stock-analysis/blob/main/Resources/VBA_Challenge_2017.png)
+![This is an image](https://github.com/Wrancher123/stock-analysis/blob/main/Resources/VBA_Challenge_2018.png%20.png)
+
+
