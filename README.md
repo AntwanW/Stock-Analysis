@@ -11,7 +11,68 @@ This analysis aimed to edit or refactor previous code in Excel VBA to compile st
 The goal is to retrieve the ticker, the total daily volume, and the return on each stock from two data charts of stock information. The stock information incorporates a ticker value, the date the stock was issued, the opening and closing, the highest and lowest price, the adjusted closing price, and the volume of the stock. The information provided outlined steps to help refactor the original code. The steps were then listed out to set the structure for the refactoring. The screenshots of the code are listed below.
 
 
-        '1a) Create a ticker Index                 tickerIndex = 0        '1b) Create three output arrays                    'The tickerVolumes array should be a Long data type.            Dim tickerVolumes(12) As Long                        'The tickerStartingPrices and tickerEndingPrices arrays should be a Single data type.            Dim tickerStartingPrices(12) As Single            Dim tickerEndingPrices(12) As Single            ''2a) Create a for loop to initialize the tickerVolumes to zero.            For i = 0 To 11                            tickerVolumes(i) = 0            Next i        ''2b) Loop over all the rows in the spreadsheet.                        For i = 2 To RowCount        '3a) Increase volume for current ticker                       tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value                '3b) Check if the current row is the first row with the selected tickerIndex.        'If  Then                    If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i - 1, 1).Value <> tickers(tickerIndex) Then                    tickerStartingPrices(tickerIndex) = Cells(i, 6).Value                                End If                '3c) check if the current row is the last row with the selected ticker        'If  Then                    If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then                    tickerEndingPrices(tickerIndex) = Cells(i, 6).Value                                    End If                        '3d Increase the tickerIndex.                    If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then                    tickerIndex = tickerIndex + 1                                    End IfNext i'4) Loop through your arrays to output the Ticker, Total Daily Volume, and Return.            For i = 0 To 11                Worksheets("All Stocks Analysis").Activate            Cells(4 + i, 1).Value = tickers(i)            Cells(4 + i, 2).Value = tickerVolumes(i)            Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
+        '1a) Create a ticker Index
+                 tickerIndex = 0
+
+        '1b) Create three output arrays
+        
+            'The tickerVolumes array should be a Long data type.
+            Dim tickerVolumes(12) As Long
+            
+            'The tickerStartingPrices and tickerEndingPrices arrays should be a Single data type.
+            Dim tickerStartingPrices(12) As Single
+            Dim tickerEndingPrices(12) As Single
+
+    
+        ''2a) Create a for loop to initialize the tickerVolumes to zero.
+
+            For i = 0 To 11
+            
+                tickerVolumes(i) = 0
+
+            Next i
+
+        ''2b) Loop over all the rows in the spreadsheet.
+        
+                For i = 2 To RowCount
+
+        '3a) Increase volume for current ticker
+        
+               tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+        
+        '3b) Check if the current row is the first row with the selected tickerIndex.
+        'If  Then
+    
+                If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i - 1, 1).Value <> tickers(tickerIndex) Then
+                    tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+                
+                End If
+        
+        '3c) check if the current row is the last row with the selected ticker
+        'If  Then
+    
+                If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
+                    tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+                    
+                End If
+            
+            '3d Increase the tickerIndex.
+    
+                If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
+                    tickerIndex = tickerIndex + 1
+                    
+                End If
+
+Next i
+
+'4) Loop through your arrays to output the Ticker, Total Daily Volume, and Return.
+
+            For i = 0 To 11
+    
+            Worksheets("All Stocks Analysis").Activate
+            Cells(4 + i, 1).Value = tickers(i)
+            Cells(4 + i, 2).Value = tickerVolumes(i)
+            Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
 
 
 
@@ -26,7 +87,19 @@ The goal is to retrieve the ticker, the total daily volume, and the return on ea
 * The advantage is that refactoring could have better quality. The disadvantage is not knowing where to go next after changing a line and trying to debug. Unsure if refactoring helps with run time or if your coding is correct.
 
 ![This is an image](https://github.com/Wrancher123/stock-analysis/blob/main/Resources/VBA_Challenge_2017.png)
+![This is an image]([https://github.com/Wrancher123/stock-analysis/blob/main/Resources/VBA_Challenge_2017.png](https://github.com/Wrancher123/Stock-Analysis/blob/main/Resources/VBA_Challenge_2017.png%202.png))
+
+* 2017 analysis result, 2017 is a good year for green energy stocks, with 11 out of 12 are positive returns. 
 
 ![This is an image](https://github.com/Wrancher123/stock-analysis/blob/main/Resources/VBA_Challenge_2018.png%20.png)
+![This is an image]([https://github.com/Wrancher123/stock-analysis/blob/main/Resources/VBA_Challenge_2018.png%20.png](https://github.com/Wrancher123/Stock-Analysis/blob/main/Resources/VBA_Challenge_2018.png%202.png))
 
+* 2018 analysis result, 2018 is not a good year for green energy stocks, with 2 out of 12 positive returns.
 
+Although returns decreased in 2018, they were still higher than the previous year. Therefore, if one holds one of these assets since 2017, they gain.
+
+#### Original vs. Refactor Script
+
+The original code, the computer took 0.843 second to run analysis for 2017 and 0.821 second to run analysis for 2018.
+The refactor code, the computer took only 0.182 second to run analysis for 2017 and 0.334 second to run analysis for 2018.
+The code in the refactoring adds a new variable to the loop, making it easier to loop through the steps. The new function also doesn't have two for loop functions; instead, it loops for i through the columns and rows.
